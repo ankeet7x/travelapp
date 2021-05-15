@@ -8,6 +8,12 @@ class AuthProvider extends ChangeNotifier {
 
   bool obscureText = true;
   bool loading = false;
+
+  changeBool() {
+    obscureText = !obscureText;
+    notifyListeners();
+  }
+
   signUpUser(username, firstname, lastname, password, phoneNo) async {
     loading = true;
     notifyListeners();
@@ -19,8 +25,13 @@ class AuthProvider extends ChangeNotifier {
     return jsonData['message'];
   }
 
-  changeBool() {
-    obscureText = !obscureText;
+  loginUser(username, password) async {
+    loading = true;
     notifyListeners();
+    var response = await authServices.loginUser(username, password);
+    var jsonData = await jsonDecode(response.body);
+    loading = true;
+    notifyListeners();
+    return jsonData['message'];
   }
 }

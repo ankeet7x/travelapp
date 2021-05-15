@@ -15,4 +15,15 @@ class AuthServices {
     var response = await http.post(reqUrl, body: userData);
     return response;
   }
+
+  loginUser(username, password) async {
+    var reqUrl = Uri.parse(loginUrl);
+    print("logging in");
+    Map<String, dynamic> userCredentials = {
+      "username": username,
+      "password": password
+    };
+    var response = await http.post(reqUrl, body: userCredentials);
+    return response;
+  }
 }

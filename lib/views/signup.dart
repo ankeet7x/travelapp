@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:travelapp/providers/authprovider.dart';
+import 'package:travelapp/ui/loginsignupcover.dart';
 import 'package:travelapp/ui/namefields.dart';
 import 'package:travelapp/views/login.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -19,18 +20,6 @@ class _SignupViewState extends State<SignupView> {
   final TextEditingController _phoneNumber = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
-  void signUp(username, firstname, lastname, password, phoneNo) async {
-    final signUpProvider = Provider.of<AuthProvider>(context, listen: false);
-    if (await signUpProvider.signUpUser(
-            username, firstname, lastname, password, phoneNo) ==
-        'userCreated') {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => LoginView()));
-    } else {
-      print('Try changing username or password');
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -40,32 +29,9 @@ class _SignupViewState extends State<SignupView> {
         key: _formKey,
         child: Column(
           children: [
-            Stack(
-              children: [
-                Container(
-                  width: double.infinity,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.elliptical(55, 20),
-                        bottomRight: Radius.elliptical(55, 20)),
-                    child: Image.asset(
-                      'assets/cover.jpg',
-                      fit: BoxFit.fitWidth,
-                    ),
-                  ),
-                  height: size.height / 2.75,
-                ),
-                Positioned(
-                    top: size.height * 0.275,
-                    left: size.width * 0.10,
-                    child: Text(
-                      "Sign up",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 40),
-                    ))
-              ],
+            CoverStack(
+              size: size,
+              guideText: "Sign up",
             ),
             SizedBox(
               height: 15,
@@ -210,7 +176,27 @@ class _SignupViewState extends State<SignupView> {
                   }
                 },
               ),
-            )
+            ),
+            SizedBox(
+              height: 15,
+            ),
+            GestureDetector(
+              onTap: () => Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => LoginView())),
+              child: Container(
+                width: size.width * 0.8,
+                height: 50,
+                decoration: BoxDecoration(
+                  color: Colors.blue,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Center(
+                    child: Text(
+                  "Login Page",
+                  style: TextStyle(color: Colors.white),
+                )),
+              ),
+            ),
           ],
         ),
       )),
