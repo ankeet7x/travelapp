@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:travelapp/providers/authprovider.dart';
 import 'package:travelapp/ui/namefields.dart';
 import 'package:travelapp/views/login.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class SignupView extends StatefulWidget {
   @override
@@ -26,7 +27,7 @@ class _SignupViewState extends State<SignupView> {
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => LoginView()));
     } else {
-      print('User already exist');
+      print('Try changing username or password');
     }
   }
 
@@ -152,14 +153,63 @@ class _SignupViewState extends State<SignupView> {
             SizedBox(
               height: 15,
             ),
-            OutlinedButton(
-              child: Text("Sign up"),
-              onPressed: () {
-                if (_formKey.currentState!.validate()) {
-                  signUp(_userName.text, _firstName.text, _lastName.text,
-                      _password.text, _phoneNumber.text);
-                }
-              },
+            Consumer<AuthProvider>(
+              builder: (context, authState, child) => GestureDetector(
+                child: Container(
+                  width: size.width * 0.8,
+                  height: 50,
+                  decoration: BoxDecoration(
+                    color: Colors.blue,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Center(
+                      child: authState.loading
+                          ? Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SpinKitThreeBounce(
+                                  color: Colors.white,
+                                  size: 10,
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Text(
+                                  "Signing up",
+                                  style: TextStyle(color: Colors.white),
+                                )
+                              ],
+                            )
+                          : Text(
+                              "Sign up",
+                              style: TextStyle(color: Colors.white),
+                            )),
+                ),
+                onTap: () async {
+                  if (_formKey.currentState!.validate()) {
+                    // signUp(_userName.text, _firstName.text, _lastName.text,
+                    //     _password.text, _phoneNumber.text);
+
+                    final signUpProvider =
+                        Provider.of<AuthProvider>(context, listen: false);
+                    if (await signUpProvider.signUpUser(
+                            _userName.text,
+                            _firstName.text,
+                            _lastName.text,
+                            _password.text,
+                            _phoneNumber.text) ==
+                        'userCreated') {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => LoginView()));
+                    } else {
+                      print('Try changing username or password');
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Text("Change Username or Phone Number"),
+                      ));
+                    }
+                  }
+                },
+              ),
             )
           ],
         ),
