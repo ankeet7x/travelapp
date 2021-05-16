@@ -1,4 +1,4 @@
-#Sun May 16 07:51:30 NPT 2021
+#Sun May 16 11:34:31 NPT 2021
 base.0=/home/ankeet/Pro/fl/travelapp/frontend/build/app/intermediates/dex/debug/mergeDexDebug/classes.dex
 renamed.0=classes.dex
 path.0=classes.dex
