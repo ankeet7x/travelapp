@@ -8,6 +8,11 @@ class PlaceProvider extends ChangeNotifier {
   PlaceServices placeServices = PlaceServices();
   List<PlaceModel> places = [];
   bool isPlaceEmpty = true;
+  int selectedIndex = 0;
+  updateIndex(index) {
+    selectedIndex = index;
+    notifyListeners();
+  }
 
   getPlaces() async {
     var response = await placeServices.getPlaces();

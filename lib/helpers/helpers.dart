@@ -25,6 +25,11 @@ class Helpers {
     await prefs.setString('userName', userName);
   }
 
+  getUserName() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString('userName');
+  }
+
   saveFirstName(String firstName) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('firstName', firstName);
