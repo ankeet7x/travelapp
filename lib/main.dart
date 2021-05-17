@@ -9,7 +9,7 @@ import 'package:travelapp/views/signup.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   bool isUserThere = await Helpers().isUserThere();
-  String userName = await Helpers().getUserName();
+  // String userName = await Helpers().getUserName();
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider.value(value: AuthProvider()),
@@ -18,7 +18,7 @@ void main() async {
     child: MaterialApp(
       debugShowCheckedModeBanner: false,
       title: "Travel App",
-      home: isUserThere ? HomeView(userName: userName) : SignupView(),
+      home: isUserThere ? HomeView() : SignupView(),
     ),
   ));
 }

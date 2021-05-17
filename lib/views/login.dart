@@ -113,9 +113,7 @@ class _LoginViewState extends State<LoginView> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => HomeView(
-                                      userName: _username.text,
-                                    )));
+                                builder: (context) => HomeView()));
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                           content: Text("Auth Failed"),

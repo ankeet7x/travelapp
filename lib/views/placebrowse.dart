@@ -21,13 +21,38 @@ class _PlaceBrowseViewState extends State<PlaceBrowseView> {
               child: CircularProgressIndicator(),
             )
           : ListView.builder(
+              shrinkWrap: true,
               itemCount: placeProvider.places.length,
               itemBuilder: (context, index) {
                 return Column(
-                  children: [
-                    Text(placeProvider.places[index].placeName),
-                  ],
-                );
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(20),
+                          child: Image.network(
+                            baseUrl + placeProvider.places[index].placeImageUrl,
+                            fit: BoxFit.cover,
+                            height: size.height * 0.2,
+                          ),
+                        ),
+                      ),
+                      Center(
+                        child: Text(
+                          placeProvider.places[index].placeName,
+                          style: TextStyle(
+                              fontSize: 22, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      Center(
+                        child: Text(
+                          "Rs." + placeProvider.places[index].price,
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ]);
               },
             ),
     );

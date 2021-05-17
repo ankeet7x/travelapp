@@ -4,9 +4,6 @@ import 'package:travelapp/providers/placeprovider.dart';
 import 'package:travelapp/views/placebrowse.dart';
 
 class HomeView extends StatefulWidget {
-  final String userName;
-  HomeView({required this.userName});
-
   @override
   _HomeViewState createState() => _HomeViewState();
 }
@@ -39,7 +36,7 @@ class _HomeViewState extends State<HomeView> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Hello " + widget.userName,
+          "Hello ",
           style: TextStyle(color: Colors.black),
         ),
         automaticallyImplyLeading: false,
