@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:travelapp/constants/urls.dart';
 import 'package:travelapp/providers/placeprovider.dart';
 
+import 'placedetails.dart';
+
 class PlaceBrowseView extends StatefulWidget {
   @override
   _PlaceBrowseViewState createState() => _PlaceBrowseViewState();
@@ -29,12 +31,23 @@ class _PlaceBrowseViewState extends State<PlaceBrowseView> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(20.0),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(20),
-                          child: Image.network(
-                            baseUrl + placeProvider.places[index].placeImageUrl,
-                            fit: BoxFit.cover,
-                            height: size.height * 0.2,
+                        child: GestureDetector(
+                          onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      PlaceDetails(placeIndex: index))),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(20),
+                            child: Hero(
+                              tag: 'img' + index.toString(),
+                              child: Image.network(
+                                baseUrl +
+                                    placeProvider.places[index].placeImageUrl,
+                                fit: BoxFit.cover,
+                                height: size.height * 0.2,
+                              ),
+                            ),
                           ),
                         ),
                       ),
@@ -48,8 +61,7 @@ class _PlaceBrowseViewState extends State<PlaceBrowseView> {
                       Center(
                         child: Text(
                           "Rs." + placeProvider.places[index].price,
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
+                          style: TextStyle(fontSize: 20),
                         ),
                       ),
                     ]);
