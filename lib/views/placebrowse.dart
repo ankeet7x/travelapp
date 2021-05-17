@@ -42,8 +42,8 @@ class _PlaceBrowseViewState extends State<PlaceBrowseView> {
                             child: Hero(
                               tag: 'img' + index.toString(),
                               child: Image.network(
-                                baseUrl +
-                                    placeProvider.places[index].placeImageUrl,
+                                placeProvider.places[index].placeImageUrl
+                                    .replaceAll("http", "https"),
                                 fit: BoxFit.cover,
                                 height: size.height * 0.2,
                               ),

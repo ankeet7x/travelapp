@@ -8,8 +8,9 @@ class OrderServices {
     var reqUrl = Uri.parse(bookingUrl);
     String token = prefs.getString('currentUserToken')!;
     String jwtKey = "Bearer " + token;
+    print(jwtKey);
     var headers = {"Authorization": jwtKey};
-
+    print("booking");
     Map<String, dynamic> bookingModel = {
       'place': place,
       'bookedBy': bookedBy,

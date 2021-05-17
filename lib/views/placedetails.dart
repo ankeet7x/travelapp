@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:travelapp/constants/urls.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:travelapp/providers/orderprovider.dart';
 import 'package:travelapp/providers/placeprovider.dart';
 
 class PlaceDetails extends StatefulWidget {
@@ -29,8 +30,8 @@ class _PlaceDetailsState extends State<PlaceDetails> {
                 child: Hero(
                   tag: "img" + widget.placeIndex.toString(),
                   child: Image.network(
-                    baseUrl +
-                        placeProvider.places[widget.placeIndex].placeImageUrl,
+                    placeProvider.places[widget.placeIndex].placeImageUrl
+                        .replaceAll('http', 'https'),
                     height: size.height * 0.4,
                     fit: BoxFit.cover,
                   ),
@@ -75,7 +76,27 @@ class _PlaceDetailsState extends State<PlaceDetails> {
         child: Align(
             alignment: Alignment.bottomCenter,
             child: GestureDetector(
-              onTap: () => {print("lol")},
+              onTap: () async {
+                SharedPreferences prefs = await SharedPreferences.getInstance();
+                String userId = prefs.getString('uid')!;
+                final bookProvider =
+                    Provider.of<OrderProvider>(context, listen: false);
+                var response = await bookProvider.postOrder(
+                    placeProvider.places[widget.placeIndex].id,
+                    userId,
+                    DateTime.now().toIso8601String(),
+                    placeProvider.places[widget.placeIndex].price);
+                print('token;' + userId);
+                print('uid:' + placeProvider.places[widget.placeIndex].id);
+                print(DateTime.now().toIso8601String());
+                if (response == 'booked') {
+                  ScaffoldMessenger.of(context)
+                      .showSnackBar(SnackBar(content: Text("Booked")));
+                } else {
+                  ScaffoldMessenger.of(context)
+                      .showSnackBar(SnackBar(content: Text("Already Booked")));
+                }
+              },
               child: Container(
                 width: size.width * 0.7,
                 height: size.height * 0.07,
