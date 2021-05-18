@@ -86,9 +86,6 @@ class _PlaceDetailsState extends State<PlaceDetails> {
                     userId,
                     DateTime.now().toIso8601String(),
                     placeProvider.places[widget.placeIndex].price);
-                print('token;' + userId);
-                print('uid:' + placeProvider.places[widget.placeIndex].id);
-                print(DateTime.now().toIso8601String());
                 if (response == 'booked') {
                   ScaffoldMessenger.of(context)
                       .showSnackBar(SnackBar(content: Text("Booked")));

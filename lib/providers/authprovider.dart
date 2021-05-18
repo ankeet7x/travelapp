@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/foundation.dart';
 import 'package:travelapp/helpers/helpers.dart';
 import 'package:travelapp/models/usermodel.dart';

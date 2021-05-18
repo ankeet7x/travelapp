@@ -9,6 +9,7 @@ class OrderProvider extends ChangeNotifier {
     var response = await orderServices.makeOrder(place, bookedBy, date, price);
     var jsonData = await jsonDecode(response.body);
     print("gotIt");
+
     return jsonData['message'];
   }
 }

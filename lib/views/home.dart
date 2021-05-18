@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:travelapp/providers/authprovider.dart';
 import 'package:travelapp/providers/placeprovider.dart';
 import 'package:travelapp/views/placebrowse.dart';
+
+import 'profile.dart';
 
 class HomeView extends StatefulWidget {
   @override
@@ -9,7 +13,7 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  List _body = [PlaceBrowseView(), Text("Swop")];
+  List _body = [PlaceBrowseView(), ProfileView()];
 
   getPlaces() async {
     final placeProvider = Provider.of<PlaceProvider>(context, listen: false);
@@ -30,34 +34,41 @@ class _HomeViewState extends State<HomeView> {
     super.initState();
   }
 
+  _exitTheApp() async {
+    SystemNavigator.pop();
+  }
+
   @override
   Widget build(BuildContext context) {
     final placeProvider = Provider.of<PlaceProvider>(context);
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "Hello ",
-          style: TextStyle(color: Colors.black),
+    return WillPopScope(
+      onWillPop: () => _exitTheApp(),
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            "Hello ",
+            style: TextStyle(color: Colors.black),
+          ),
+          automaticallyImplyLeading: false,
+          backgroundColor: Colors.white,
+          elevation: 0,
         ),
-        automaticallyImplyLeading: false,
-        backgroundColor: Colors.white,
-        elevation: 0,
-      ),
-      body: _body.elementAt(placeProvider.selectedIndex),
-      bottomNavigationBar: BottomNavigationBar(
-        onTap: (index) {
-          placeProvider.updateIndex(index);
-        },
-        currentIndex: placeProvider.selectedIndex,
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        selectedItemColor: Colors.blue,
-        unselectedItemColor: Colors.yellow,
-        items: [
-          BottomNavigationBarItem(
-              icon: Icon(Icons.home_outlined), label: "Place"),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Person")
-        ],
+        body: _body.elementAt(placeProvider.selectedIndex),
+        bottomNavigationBar: BottomNavigationBar(
+          onTap: (index) {
+            placeProvider.updateIndex(index);
+          },
+          currentIndex: placeProvider.selectedIndex,
+          showSelectedLabels: false,
+          showUnselectedLabels: false,
+          selectedItemColor: Colors.blue,
+          unselectedItemColor: Colors.yellow,
+          items: [
+            BottomNavigationBarItem(
+                icon: Icon(Icons.home_outlined), label: "Place"),
+            BottomNavigationBarItem(icon: Icon(Icons.person), label: "Person")
+          ],
+        ),
       ),
     );
   }

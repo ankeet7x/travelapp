@@ -35,14 +35,29 @@ class Helpers {
     await prefs.setString('firstName', firstName);
   }
 
+  getFirstName() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString('firstName');
+  }
+
   saveLastName(String lastName) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('lastName', lastName);
   }
 
+  getLastName() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString('lastName');
+  }
+
   savePhoneNumber(String phoneNumber) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('phoneNumber', phoneNumber);
+  }
+
+  getPhoneNumber() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString('phoneNumber');
   }
 
   removeUserData() async {
