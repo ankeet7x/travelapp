@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:travelapp/helpers/helpers.dart';
+import 'package:travelapp/providers/orderprovider.dart';
 
 class ProfileView extends StatefulWidget {
   @override
@@ -7,6 +9,17 @@ class ProfileView extends StatefulWidget {
 }
 
 class _ProfileViewState extends State<ProfileView> {
+  @override
+  void initState() {
+    super.initState();
+    fetchBookings();
+  }
+
+  fetchBookings() async {
+    final bookingProvider = Provider.of<OrderProvider>(context, listen: false);
+    await bookingProvider.getBookingOfThisUser();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -53,6 +66,26 @@ class _ProfileViewState extends State<ProfileView> {
                 return Container();
               }
             }),
+        Consumer<OrderProvider>(builder: (context, bookingPro, child) {
+          return Container(
+            child: !bookingPro.gotOrders
+                ? Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: bookingPro.bookings.length,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                          trailing: IconButton(
+                              icon: Icon(Icons.delete),
+                              onPressed: () => bookingPro.deleteUserBooking(
+                                  bookingPro.bookings[index].id)),
+                          title: Text(bookingPro.bookings[index].place));
+                    },
+                  ),
+          );
+        })
       ],
     ));
   }

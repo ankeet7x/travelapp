@@ -77,6 +77,10 @@ class _PlaceDetailsState extends State<PlaceDetails> {
             alignment: Alignment.bottomCenter,
             child: GestureDetector(
               onTap: () async {
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: Text("Booking"),
+                  duration: Duration(seconds: 1),
+                ));
                 SharedPreferences prefs = await SharedPreferences.getInstance();
                 String userId = prefs.getString('uid')!;
                 final bookProvider =
@@ -86,12 +90,15 @@ class _PlaceDetailsState extends State<PlaceDetails> {
                     userId,
                     DateTime.now().toIso8601String(),
                     placeProvider.places[widget.placeIndex].price);
+
                 if (response == 'booked') {
                   ScaffoldMessenger.of(context)
                       .showSnackBar(SnackBar(content: Text("Booked")));
                 } else {
-                  ScaffoldMessenger.of(context)
-                      .showSnackBar(SnackBar(content: Text("Already Booked")));
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text("Already Booked"),
+                    duration: Duration(seconds: 2),
+                  ));
                 }
               },
               child: Container(

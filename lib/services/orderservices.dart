@@ -35,4 +35,14 @@ class OrderServices {
     var response = await http.get(reqUrl, headers: headers);
     return response;
   }
+
+  deleteSpecificBooking(bookingId) async {
+    String token = await helpers.getUserToken();
+    var reqUrl = Uri.parse(bookingUrl + bookingId);
+    String jwtKey = "Bearer " + token;
+    var headers = {"Authorization": jwtKey};
+    print("deleting");
+    var response = await http.delete(reqUrl, headers: headers);
+    return response;
+  }
 }

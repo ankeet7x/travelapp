@@ -10,7 +10,6 @@ import 'package:travelapp/views/signup.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   bool isUserThere = await Helpers().isUserThere();
-  // String userName = await Helpers().getUserName();
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider.value(value: AuthProvider()),

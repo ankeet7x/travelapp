@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:travelapp/helpers/helpers.dart';
 import 'package:travelapp/providers/authprovider.dart';
 import 'package:travelapp/providers/orderprovider.dart';
 import 'package:travelapp/providers/placeprovider.dart';
@@ -14,6 +15,7 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
+  Helpers helpers = Helpers();
   List _body = [PlaceBrowseView(), ProfileView()];
 
   getPlaces() async {
@@ -42,14 +44,22 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     final placeProvider = Provider.of<PlaceProvider>(context);
-    final bookingProvider = Provider.of<OrderProvider>(context);
     return WillPopScope(
       onWillPop: () => _exitTheApp(),
       child: Scaffold(
         appBar: AppBar(
-          title: Text(
-            "Hello ",
-            style: TextStyle(color: Colors.black),
+          title: FutureBuilder(
+            future: helpers.getUserName(),
+            builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                return Text(
+                  "Hello " + snapshot.data.toString(),
+                  style: TextStyle(color: Colors.black),
+                );
+              } else {
+                return Container();
+              }
+            },
           ),
           automaticallyImplyLeading: false,
           backgroundColor: Colors.white,
@@ -64,25 +74,21 @@ class _HomeViewState extends State<HomeView> {
           showSelectedLabels: false,
           showUnselectedLabels: false,
           selectedItemColor: Colors.blue,
-          unselectedItemColor: Colors.yellow,
+          unselectedItemColor: Colors.blue,
           items: [
             BottomNavigationBarItem(
-                icon: Icon(Icons.home_outlined), label: "Place"),
-            BottomNavigationBarItem(icon: Icon(Icons.person), label: "Person")
+                icon: Icon(placeProvider.selectedIndex == 0
+                    ? Icons.home
+                    : Icons.home_outlined),
+                label: "Place"),
+            BottomNavigationBarItem(
+                icon: Icon(placeProvider.selectedIndex == 1
+                    ? Icons.person
+                    : Icons.person_outline),
+                label: "Person")
           ],
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () => bookingProvider.getBooking(),
         ),
       ),
     );
   }
 }
-
-// placeProvider.isPlaceEmpty
-//           ? CircularProgressIndicator()
-//           : ListView.builder(
-//               itemCount: placeProvider.places.length,
-//               itemBuilder: (context, index) =>
-//                   Text(placeProvider.places[index].placeName),
-//             ),

@@ -3,7 +3,7 @@ class OrderModel {
   String place;
   String bookedBy;
   String date;
-  String price;
+  int price;
 
   OrderModel(
       {required this.id,
