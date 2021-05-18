@@ -6,6 +6,11 @@ class Helpers {
     await prefs.setString('currentUserToken', token);
   }
 
+  getUserToken() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString('currentUserToken').toString();
+  }
+
   Future<bool> isUserThere() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (prefs.getString('currentUserToken') != null) {
@@ -18,6 +23,11 @@ class Helpers {
   saveId(String id) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('uid', id);
+  }
+
+  getUserId() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString('uid').toString();
   }
 
   saveUserName(String userName) async {

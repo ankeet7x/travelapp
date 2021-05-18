@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:travelapp/providers/authprovider.dart';
+import 'package:travelapp/providers/orderprovider.dart';
 import 'package:travelapp/providers/placeprovider.dart';
 import 'package:travelapp/views/placebrowse.dart';
 
@@ -41,6 +42,7 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     final placeProvider = Provider.of<PlaceProvider>(context);
+    final bookingProvider = Provider.of<OrderProvider>(context);
     return WillPopScope(
       onWillPop: () => _exitTheApp(),
       child: Scaffold(
@@ -68,6 +70,9 @@ class _HomeViewState extends State<HomeView> {
                 icon: Icon(Icons.home_outlined), label: "Place"),
             BottomNavigationBarItem(icon: Icon(Icons.person), label: "Person")
           ],
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () => bookingProvider.getBooking(),
         ),
       ),
     );

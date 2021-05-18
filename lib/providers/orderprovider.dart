@@ -12,4 +12,10 @@ class OrderProvider extends ChangeNotifier {
 
     return jsonData['message'];
   }
+
+  getBooking() async {
+    var response = await orderServices.getBookingOfSpecificUser();
+    var jsonData = await jsonDecode(response.body);
+    print(jsonData);
+  }
 }
