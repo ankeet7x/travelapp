@@ -24,7 +24,7 @@ class CoverStack extends StatelessWidget {
         ),
         Positioned(
             top: size.height * 0.275,
-            left: size.width * 0.10,
+            left: size.width * 0.08,
             child: Text(
               guideText,
               style: TextStyle(

@@ -6,6 +6,7 @@ import 'package:travelapp/providers/authprovider.dart';
 import 'package:travelapp/providers/orderprovider.dart';
 import 'package:travelapp/providers/placeprovider.dart';
 import 'package:travelapp/views/placebrowse.dart';
+import 'package:travelapp/views/signup.dart';
 
 import 'profile.dart';
 
@@ -48,6 +49,19 @@ class _HomeViewState extends State<HomeView> {
       onWillPop: () => _exitTheApp(),
       child: Scaffold(
         appBar: AppBar(
+          actions: [
+            IconButton(
+              icon: Icon(
+                Icons.logout,
+                color: Colors.black,
+              ),
+              onPressed: () {
+                helpers.removeUserData();
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => SignupView()));
+              },
+            )
+          ],
           title: FutureBuilder(
             future: helpers.getUserName(),
             builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {

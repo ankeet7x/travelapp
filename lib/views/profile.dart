@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:travelapp/helpers/helpers.dart';
 import 'package:travelapp/providers/orderprovider.dart';
 
+import 'bookingdetailspage.dart';
+
 class ProfileView extends StatefulWidget {
   @override
   _ProfileViewState createState() => _ProfileViewState();
@@ -77,11 +79,15 @@ class _ProfileViewState extends State<ProfileView> {
                     itemCount: bookingPro.bookings.length,
                     itemBuilder: (context, index) {
                       return ListTile(
+                          onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => BookingDetailsPage())),
                           trailing: IconButton(
                               icon: Icon(Icons.delete),
                               onPressed: () => bookingPro.deleteUserBooking(
                                   bookingPro.bookings[index].id)),
-                          title: Text(bookingPro.bookings[index].place));
+                          title: Text("Booking " + (index + 1).toString()));
                     },
                   ),
           );
