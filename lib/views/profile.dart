@@ -32,29 +32,36 @@ class _ProfileViewState extends State<ProfileView> {
           Icons.person,
           size: 35,
         )),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            FutureBuilder<dynamic>(
+                future: Helpers().getFirstName(),
+                builder:
+                    (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    return Text(snapshot.data.toString() + " ");
+                  } else {
+                    return Container();
+                  }
+                }),
+            FutureBuilder<dynamic>(
+                future: Helpers().getLastName(),
+                builder:
+                    (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    return Text(snapshot.data.toString());
+                  } else {
+                    return Container();
+                  }
+                }),
+          ],
+        ),
         FutureBuilder<dynamic>(
             future: Helpers().getUserName(),
             builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
-                return Text(snapshot.data.toString());
-              } else {
-                return Container();
-              }
-            }),
-        FutureBuilder<dynamic>(
-            future: Helpers().getFirstName(),
-            builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
-                return Text(snapshot.data.toString());
-              } else {
-                return Container();
-              }
-            }),
-        FutureBuilder<dynamic>(
-            future: Helpers().getLastName(),
-            builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
-                return Text(snapshot.data.toString());
+                return Text("@" + snapshot.data.toString());
               } else {
                 return Container();
               }
