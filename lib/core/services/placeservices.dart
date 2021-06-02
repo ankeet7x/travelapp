@@ -1,5 +1,5 @@
 import 'package:http/http.dart' as http;
-import 'package:travelapp/constants/urls.dart';
+import 'package:travelapp/app/constants/urls.dart';
 
 class PlaceServices {
   getPlaces() async {

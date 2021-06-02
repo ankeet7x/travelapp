@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
-import 'package:travelapp/helpers/helpers.dart';
-import 'package:travelapp/models/usermodel.dart';
-import 'package:travelapp/services/authservices.dart';
+import 'package:travelapp/app/shared/helpers.dart';
+import 'package:travelapp/core/models/usermodel.dart';
+import 'package:travelapp/core/services/authservices.dart';
 
 class AuthProvider extends ChangeNotifier {
   AuthServices authServices = AuthServices();

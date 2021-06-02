@@ -1,8 +1,7 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:travelapp/models/postmodel.dart';
-import 'package:travelapp/services/placeservices.dart';
+import 'package:travelapp/core/models/postmodel.dart';
+import 'package:travelapp/core/services/placeservices.dart';
 
 class PlaceProvider extends ChangeNotifier {
   PlaceServices placeServices = PlaceServices();

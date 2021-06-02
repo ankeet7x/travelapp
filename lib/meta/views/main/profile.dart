@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:travelapp/helpers/helpers.dart';
-import 'package:travelapp/providers/orderprovider.dart';
+import 'package:travelapp/app/shared/helpers.dart';
+import 'package:travelapp/core/providers/orderprovider.dart';
 
 import 'bookingdetailspage.dart';
 

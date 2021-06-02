@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:travelapp/constants/urls.dart';
-import 'package:travelapp/providers/placeprovider.dart';
+import 'package:travelapp/core/providers/placeprovider.dart';
 
 import 'placedetails.dart';
 

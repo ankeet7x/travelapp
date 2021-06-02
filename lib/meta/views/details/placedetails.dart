@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:travelapp/providers/orderprovider.dart';
-import 'package:travelapp/providers/placeprovider.dart';
+import 'package:travelapp/core/providers/orderprovider.dart';
+import 'package:travelapp/core/providers/placeprovider.dart';
 
 class PlaceDetails extends StatefulWidget {
   final placeIndex;

@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
-import 'package:travelapp/providers/authprovider.dart';
-import 'package:travelapp/ui/loginsignupcover.dart';
-import 'package:travelapp/ui/namefields.dart';
-import 'package:travelapp/views/home.dart';
-import 'package:travelapp/views/signup.dart';
+import 'package:travelapp/core/providers/authprovider.dart';
+import 'package:travelapp/meta/views/home.dart';
+import 'package:travelapp/meta/views/signup.dart';
+import 'package:travelapp/meta/widgets/loginsignupcover.dart';
+import 'package:travelapp/meta/widgets/namefields.dart';
 
 class LoginView extends StatefulWidget {
   @override

@@ -1,5 +1,5 @@
-import 'package:travelapp/constants/urls.dart';
 import 'package:http/http.dart' as http;
+import 'package:travelapp/app/constants/urls.dart';
 
 class AuthServices {
   createUser(username, firstname, lastname, password, phoneNo) async {

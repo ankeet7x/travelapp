@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:travelapp/helpers/helpers.dart';
-import 'package:travelapp/providers/authprovider.dart';
-import 'package:travelapp/providers/orderprovider.dart';
-import 'package:travelapp/providers/placeprovider.dart';
-import 'package:travelapp/views/home.dart';
-import 'package:travelapp/views/signup.dart';
+import 'package:travelapp/app/shared/helpers.dart';
+import 'package:travelapp/core/providers/orderprovider.dart';
+import 'package:travelapp/core/providers/placeprovider.dart';
+import 'package:travelapp/meta/views/home.dart';
+import 'package:travelapp/meta/views/signup.dart';
+import 'core/providers/authprovider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

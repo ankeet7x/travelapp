@@ -1,14 +1,12 @@
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:travelapp/constants/urls.dart';
-import 'package:travelapp/helpers/helpers.dart';
+import 'package:travelapp/app/constants/urls.dart';
+import 'package:travelapp/app/shared/helpers.dart';
 
 class OrderServices {
+  Helpers helpers = Helpers();
   makeOrder(place, bookedBy, date, price) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
     var reqUrl = Uri.parse(bookingUrl);
-    String token = prefs.getString('currentUserToken')!;
-    String jwtKey = "Bearer " + token;
+    String jwtKey = "Bearer " + helpers.getUserToken().toString();
     print(jwtKey);
     var headers = {"Authorization": jwtKey};
     print("booking");
@@ -23,7 +21,7 @@ class OrderServices {
     return response;
   }
 
-  Helpers helpers = Helpers();
+  // Helpers helpers = Helpers();
 
   getBookingOfSpecificUser() async {
     String userId = await helpers.getUserId();

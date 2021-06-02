@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
-import 'package:travelapp/models/ordermodel.dart';
-import 'package:travelapp/services/orderservices.dart';
+import 'package:travelapp/core/models/ordermodel.dart';
+import 'package:travelapp/core/services/orderservices.dart';
 
 enum BookingStatus { Booking, Completion }
 
