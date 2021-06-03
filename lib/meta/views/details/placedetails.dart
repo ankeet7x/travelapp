@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:travelapp/core/providers/orderprovider.dart';
@@ -13,12 +14,15 @@ class PlaceDetails extends StatefulWidget {
 }
 
 class _PlaceDetailsState extends State<PlaceDetails> {
+  bool isApiCallProgress = false;
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final placeProvider = Provider.of<PlaceProvider>(context);
     return Scaffold(
-      body: SingleChildScrollView(
+      body: ModalProgressHUD(
+        inAsyncCall: Provider.of<OrderProvider>(context).isApiCallProgress,
         child: Column(
           children: [
             Container(
@@ -77,28 +81,50 @@ class _PlaceDetailsState extends State<PlaceDetails> {
             alignment: Alignment.bottomCenter,
             child: GestureDetector(
               onTap: () async {
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  content: Text("Booking"),
-                  duration: Duration(seconds: 1),
-                ));
-                SharedPreferences prefs = await SharedPreferences.getInstance();
-                String userId = prefs.getString('uid')!;
                 final bookProvider =
                     Provider.of<OrderProvider>(context, listen: false);
+
+                SharedPreferences prefs = await SharedPreferences.getInstance();
+                String userId = prefs.getString('uid')!;
+                print(userId.toString());
+
                 var response = await bookProvider.postOrder(
                     placeProvider.places[widget.placeIndex].id,
                     userId,
                     DateTime.now().toIso8601String(),
                     placeProvider.places[widget.placeIndex].price);
-
                 if (response == 'booked') {
-                  ScaffoldMessenger.of(context)
-                      .showSnackBar(SnackBar(content: Text("Booked")));
-                } else {
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    content: Text("Already Booked"),
-                    duration: Duration(seconds: 2),
-                  ));
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) => AlertDialog(
+                            content: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text("Booked"),
+                                TextButton(
+                                    onPressed: () => Navigator.of(context,
+                                            rootNavigator: true)
+                                        .pop(),
+                                    child: Text("Ok"))
+                              ],
+                            ),
+                          ));
+                } else if (response == 'already booked') {
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) => AlertDialog(
+                            content: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text("Already Booked"),
+                                TextButton(
+                                    onPressed: () => Navigator.of(context,
+                                            rootNavigator: true)
+                                        .pop(),
+                                    child: Text("Ok"))
+                              ],
+                            ),
+                          ));
                 }
               },
               child: Container(

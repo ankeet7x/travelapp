@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:travelapp/app/router/router.dart';
 import 'package:travelapp/app/shared/helpers.dart';
 import 'package:travelapp/core/providers/orderprovider.dart';
 import 'package:travelapp/core/providers/placeprovider.dart';
 import 'package:travelapp/meta/views/home.dart';
-import 'package:travelapp/meta/views/signup.dart';
+import 'package:travelapp/meta/views/auth/signup.dart';
 import 'core/providers/authprovider.dart';
 
 void main() async {
@@ -19,7 +20,8 @@ void main() async {
     child: MaterialApp(
       debugShowCheckedModeBanner: false,
       title: "Travel App",
-      home: isUserThere ? HomeView() : SignupView(),
+      initialRoute: isUserThere ? '/' : '/login',
+      onGenerateRoute: RouteGenerator.generateRoutes,
     ),
   ));
 }

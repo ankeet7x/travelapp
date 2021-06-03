@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:travelapp/core/providers/authprovider.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:travelapp/meta/views/login.dart';
+import 'package:travelapp/meta/views/auth/login.dart';
 import 'package:travelapp/meta/widgets/loginsignupcover.dart';
 import 'package:travelapp/meta/widgets/namefields.dart';
 

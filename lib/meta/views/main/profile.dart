@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:travelapp/app/shared/helpers.dart';
 import 'package:travelapp/core/providers/orderprovider.dart';
 
-import 'bookingdetailspage.dart';
+import '../details/bookingdetailspage.dart';
 
 class ProfileView extends StatefulWidget {
   @override

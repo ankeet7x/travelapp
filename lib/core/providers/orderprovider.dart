@@ -3,15 +3,21 @@ import 'package:flutter/foundation.dart';
 import 'package:travelapp/core/models/ordermodel.dart';
 import 'package:travelapp/core/services/orderservices.dart';
 
-enum BookingStatus { Booking, Completion }
+enum BookingStatus { Booking, Completion, Idle }
 
 class OrderProvider extends ChangeNotifier {
   OrderServices orderServices = OrderServices();
-
+  BookingStatus bookingStatus = BookingStatus.Idle;
+  bool isApiCallProgress = false;
   postOrder(place, bookedBy, date, price) async {
+    isApiCallProgress = true;
+    notifyListeners();
     var response = await orderServices.makeOrder(place, bookedBy, date, price);
     var jsonData = await jsonDecode(response.body);
-    print("gotIt");
+    if (jsonData['message'] != null) {
+      isApiCallProgress = false;
+      notifyListeners();
+    }
     return jsonData['message'];
   }
 
@@ -35,5 +41,10 @@ class OrderProvider extends ChangeNotifier {
     // var jsonData = await jsonDecode(response.body);
     getBookingOfThisUser();
     // print(jsonData);
+  }
+
+  changeBookingStatus(BookingStatus status) {
+    bookingStatus = status;
+    notifyListeners();
   }
 }

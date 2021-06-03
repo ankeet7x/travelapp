@@ -6,9 +6,10 @@ class OrderServices {
   Helpers helpers = Helpers();
   makeOrder(place, bookedBy, date, price) async {
     var reqUrl = Uri.parse(bookingUrl);
-    String jwtKey = "Bearer " + helpers.getUserToken().toString();
-    print(jwtKey);
+    String token = await helpers.getUserToken();
+    String jwtKey = "Bearer " + token.toString();
     var headers = {"Authorization": jwtKey};
+    print(jwtKey);
     print("booking");
     Map<String, dynamic> bookingModel = {
       'place': place,
