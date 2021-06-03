@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:travelapp/core/providers/authprovider.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:travelapp/meta/views/auth/login.dart';
 import 'package:travelapp/meta/widgets/loginsignupcover.dart';
 import 'package:travelapp/meta/widgets/namefields.dart';
@@ -89,9 +88,12 @@ class _SignupViewState extends State<SignupView> {
                         ),
                       ),
                       IconButton(
-                        icon: Icon(authState.obscureText
-                            ? Icons.visibility
-                            : Icons.visibility_off),
+                        icon: Icon(
+                          authState.obscureText
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                          color: Colors.blue,
+                        ),
                         onPressed: () => authState.changeBool(),
                       )
                     ],
@@ -133,64 +135,39 @@ class _SignupViewState extends State<SignupView> {
               SizedBox(
                 height: 15,
               ),
-              Consumer<AuthProvider>(
-                builder: (context, authState, child) => GestureDetector(
-                  child: Container(
-                    width: size.width * 0.8,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      color: Colors.blue,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Center(
-                        child: authState.loading
-                            ? Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  SpinKitThreeBounce(
-                                    color: Colors.white,
-                                    size: 10,
-                                  ),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  Text(
-                                    "Signing up",
-                                    style: TextStyle(color: Colors.white),
-                                  )
-                                ],
-                              )
-                            : Text(
-                                "Sign up",
-                                style: TextStyle(color: Colors.white),
-                              )),
-                  ),
-                  onTap: () async {
-                    if (_formKey.currentState!.validate()) {
-                      // signUp(_userName.text, _firstName.text, _lastName.text,
-                      //     _password.text, _phoneNumber.text);
-
-                      final signUpProvider =
-                          Provider.of<AuthProvider>(context, listen: false);
-                      if (await signUpProvider.signUpUser(
-                              _userName.text,
-                              _firstName.text,
-                              _lastName.text,
-                              _password.text,
-                              _phoneNumber.text) ==
-                          'userCreated') {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => LoginView()));
-                      } else {
-                        print('Try changing username or password');
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          content: Text("Change Username or Phone Number"),
-                        ));
-                      }
+              GestureDetector(
+                onTap: () async {
+                  if (_formKey.currentState!.validate()) {
+                    final signUpProvider =
+                        Provider.of<AuthProvider>(context, listen: false);
+                    if (await signUpProvider.signUpUser(
+                            _userName.text,
+                            _firstName.text,
+                            _lastName.text,
+                            _password.text,
+                            _phoneNumber.text) ==
+                        'userCreated') {
+                      Navigator.pushNamed(context, '/login');
+                    } else {
+                      print('Try changing username or password');
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Text("Change Username or Phone Number"),
+                      ));
                     }
-                  },
+                  }
+                },
+                child: Container(
+                  width: size.width * 0.8,
+                  height: 50,
+                  decoration: BoxDecoration(
+                    color: Colors.blue,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Center(
+                      child: Text(
+                    "Sign Up",
+                    style: TextStyle(color: Colors.white),
+                  )),
                 ),
               ),
               SizedBox(
@@ -202,23 +179,11 @@ class _SignupViewState extends State<SignupView> {
               SizedBox(
                 height: 10,
               ),
-              GestureDetector(
-                onTap: () => Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => LoginView())),
-                child: Container(
-                  width: size.width * 0.8,
-                  height: 50,
-                  decoration: BoxDecoration(
-                    color: Colors.blue,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Center(
-                      child: Text(
-                    "Login Page",
-                    style: TextStyle(color: Colors.white),
-                  )),
-                ),
-              ),
+              TextButton(
+                  onPressed: () => Navigator.pushNamed(context, '/login'),
+                  child: Text("Log In",
+                      style: TextStyle(
+                          color: Colors.blue, fontWeight: FontWeight.bold)))
             ],
           ),
         )),

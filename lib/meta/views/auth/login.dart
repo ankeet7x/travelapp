@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
 import 'package:travelapp/core/providers/authprovider.dart';
@@ -78,9 +77,12 @@ class _LoginViewState extends State<LoginView> {
                             ),
                           ),
                           IconButton(
-                            icon: Icon(authState.obscureText
-                                ? Icons.visibility
-                                : Icons.visibility_off),
+                            icon: Icon(
+                              authState.obscureText
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                              color: Colors.blue,
+                            ),
                             onPressed: () => authState.changeBool(),
                           ),
                         ],
@@ -90,56 +92,47 @@ class _LoginViewState extends State<LoginView> {
                   SizedBox(
                     height: 15,
                   ),
-                  Consumer<AuthProvider>(
-                    builder: (context, authState, child) => GestureDetector(
-                      child: Container(
-                        width: size.width * 0.8,
-                        height: 50,
-                        decoration: BoxDecoration(
-                          color: Colors.blue,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Center(
-                            child: authState.loading
-                                ? Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
+                  GestureDetector(
+                    onTap: () async {
+                      if (_loginFormKey.currentState!.validate()) {
+                        final _loginProvider =
+                            Provider.of<AuthProvider>(context, listen: false);
+                        if (await _loginProvider.loginUser(
+                                _username.text, _password.text) ==
+                            'userLoggedIn') {
+                          Navigator.pushNamed(context, '/');
+                        } else {
+                          showDialog(
+                              context: context,
+                              builder: (BuildContext context) => AlertDialog(
+                                      content: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
                                     children: [
-                                      SpinKitThreeBounce(
-                                        color: Colors.white,
-                                        size: 10,
-                                      ),
-                                      SizedBox(
-                                        width: 10,
-                                      ),
-                                      Text(
-                                        "Logging In",
-                                        style: TextStyle(color: Colors.white),
+                                      Text("Auth Failed"),
+                                      TextButton(
+                                        child: Text("Ok"),
+                                        onPressed: () => Navigator.of(context,
+                                                rootNavigator: true)
+                                            .pop(),
                                       )
                                     ],
-                                  )
-                                : Text(
-                                    "Login",
-                                    style: TextStyle(color: Colors.white),
-                                  )),
-                      ),
-                      onTap: () async {
-                        if (_loginFormKey.currentState!.validate()) {
-                          final _loginProvider =
-                              Provider.of<AuthProvider>(context, listen: false);
-                          if (await _loginProvider.loginUser(
-                                  _username.text, _password.text) ==
-                              'userLoggedIn') {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => HomeView()));
-                          } else {
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                              content: Text("Auth Failed"),
-                            ));
-                          }
+                                  )));
                         }
-                      },
+                      }
+                    },
+                    child: Container(
+                      width: size.width * 0.8,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        color: Colors.blue,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Center(
+                          child: Text(
+                        "Login",
+                        style: TextStyle(color: Colors.white),
+                      )),
                     ),
                   ),
                   SizedBox(
@@ -151,22 +144,11 @@ class _LoginViewState extends State<LoginView> {
                   SizedBox(
                     height: 10,
                   ),
-                  GestureDetector(
-                    onTap: () => Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => SignupView())),
-                    child: Container(
-                        width: size.width * 0.8,
-                        height: 50,
-                        decoration: BoxDecoration(
-                          color: Colors.blue,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Center(
-                            child: Text(
-                          "Signup Page",
-                          style: TextStyle(color: Colors.white),
-                        ))),
-                  ),
+                  TextButton(
+                      onPressed: () => Navigator.pushNamed(context, '/signup'),
+                      child: Text("Sign Up",
+                          style: TextStyle(
+                              color: Colors.blue, fontWeight: FontWeight.bold)))
                 ],
               ),
             ),

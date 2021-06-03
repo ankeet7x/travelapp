@@ -4,8 +4,6 @@ import 'package:travelapp/app/router/router.dart';
 import 'package:travelapp/app/shared/helpers.dart';
 import 'package:travelapp/core/providers/orderprovider.dart';
 import 'package:travelapp/core/providers/placeprovider.dart';
-import 'package:travelapp/meta/views/home.dart';
-import 'package:travelapp/meta/views/auth/signup.dart';
 import 'core/providers/authprovider.dart';
 
 void main() async {

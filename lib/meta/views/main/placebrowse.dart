@@ -31,11 +31,9 @@ class _PlaceBrowseViewState extends State<PlaceBrowseView> {
                       Padding(
                         padding: const EdgeInsets.all(20.0),
                         child: GestureDetector(
-                          onTap: () => Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      PlaceDetails(placeIndex: index))),
+                          onTap: () => Navigator.pushNamed(
+                              context, '/placedata',
+                              arguments: index),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(20),
                             child: Hero(

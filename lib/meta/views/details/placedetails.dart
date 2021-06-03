@@ -127,7 +127,7 @@ class _PlaceDetailsState extends State<PlaceDetails> {
                       context: context,
                       builder: (BuildContext context) => AlertDialog(
                             content: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 Text("Already Booked"),
                                 TextButton(
