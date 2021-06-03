@@ -68,27 +68,33 @@ class _SignupViewState extends State<SignupView> {
                   borderRadius: BorderRadius.all(Radius.circular(10)),
                 ),
                 child: Consumer<AuthProvider>(
-                  builder: (context, authState, child) => TextFormField(
-                    controller: _password,
-                    obscureText: authState.obscureText,
-                    validator: (val) {
-                      if (val!.length < 8) {
-                        return "Password mustn't be less than 8 characters";
-                      } else {
-                        return null;
-                      }
-                    },
-                    decoration: InputDecoration(
-                        suffixIcon: IconButton(
-                          icon: Icon(authState.obscureText
-                              ? Icons.visibility
-                              : Icons.visibility_off),
-                          onPressed: () => authState.changeBool(),
+                  builder: (context, authState, child) => Row(
+                    children: [
+                      Expanded(
+                        child: TextFormField(
+                          controller: _password,
+                          obscureText: authState.obscureText,
+                          validator: (val) {
+                            if (val!.length < 8) {
+                              return "Password mustn't be less than 8 characters";
+                            } else {
+                              return null;
+                            }
+                          },
+                          decoration: InputDecoration(
+                              border: InputBorder.none,
+                              fillColor: Colors.white,
+                              contentPadding: EdgeInsets.only(left: 10),
+                              hintText: "Password"),
                         ),
-                        border: InputBorder.none,
-                        fillColor: Colors.white,
-                        contentPadding: EdgeInsets.only(left: 10),
-                        hintText: "Password"),
+                      ),
+                      IconButton(
+                        icon: Icon(authState.obscureText
+                            ? Icons.visibility
+                            : Icons.visibility_off),
+                        onPressed: () => authState.changeBool(),
+                      )
+                    ],
                   ),
                 ),
               ),

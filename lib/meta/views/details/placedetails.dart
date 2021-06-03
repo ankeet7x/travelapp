@@ -59,6 +59,19 @@ class _PlaceDetailsState extends State<PlaceDetails> {
               height: 8,
             ),
             Padding(
+              padding: const EdgeInsets.only(left: 28.0),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  "Rs. " + placeProvider.places[widget.placeIndex].price,
+                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 8,
+            ),
+            Padding(
               padding: const EdgeInsets.fromLTRB(28.0, 0, 28.0, 0),
               child: Align(
                 alignment: Alignment.centerLeft,
