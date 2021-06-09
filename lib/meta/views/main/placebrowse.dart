@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:travelapp/core/providers/placeprovider.dart';
 
-import '../details/placedetails.dart';
-
 class PlaceBrowseView extends StatefulWidget {
   @override
   _PlaceBrowseViewState createState() => _PlaceBrowseViewState();

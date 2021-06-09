@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:travelapp/core/providers/placeprovider.dart';
 import 'package:travelapp/app/shared/helpers.dart';
+import 'package:travelapp/core/services/cacheservices.dart';
 import 'package:travelapp/meta/views/main/placebrowse.dart';
 import 'package:travelapp/meta/views/auth/signup.dart';
 
@@ -39,6 +40,10 @@ class _HomeViewState extends State<HomeView> {
     return WillPopScope(
       onWillPop: () => _exitTheApp(),
       child: Scaffold(
+        floatingActionButton: FloatingActionButton(
+          onPressed: () =>
+              DatabaseService().getPlaces().then((value) => print(value)),
+        ),
         appBar: AppBar(
           actions: [
             IconButton(

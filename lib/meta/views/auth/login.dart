@@ -3,8 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
 import 'package:travelapp/core/providers/authprovider.dart';
-import 'package:travelapp/meta/views/home.dart';
-import 'package:travelapp/meta/views/auth/signup.dart';
 import 'package:travelapp/meta/widgets/loginsignupcover.dart';
 import 'package:travelapp/meta/widgets/namefields.dart';
 
