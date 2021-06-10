@@ -107,37 +107,9 @@ class _PlaceDetailsState extends State<PlaceDetails> {
                     DateTime.now().toIso8601String(),
                     placeProvider.places[widget.placeIndex].price);
                 if (response == 'booked') {
-                  showDialog(
-                      context: context,
-                      builder: (BuildContext context) => AlertDialog(
-                            content: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text("Booked"),
-                                TextButton(
-                                    onPressed: () => Navigator.of(context,
-                                            rootNavigator: true)
-                                        .pop(),
-                                    child: Text("Ok"))
-                              ],
-                            ),
-                          ));
+                  displayDialog("Booked");
                 } else if (response == 'already booked') {
-                  showDialog(
-                      context: context,
-                      builder: (BuildContext context) => AlertDialog(
-                            content: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Text("Already Booked"),
-                                TextButton(
-                                    onPressed: () => Navigator.of(context,
-                                            rootNavigator: true)
-                                        .pop(),
-                                    child: Text("Ok"))
-                              ],
-                            ),
-                          ));
+                  displayDialog("Already Booked");
                 }
               },
               child: Container(
@@ -153,5 +125,28 @@ class _PlaceDetailsState extends State<PlaceDetails> {
             )),
       ),
     );
+  }
+
+  Future<dynamic> displayDialog(String status) {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+              content: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    status,
+                    style: TextStyle(fontWeight: FontWeight.w400, fontSize: 22),
+                  ),
+                  TextButton(
+                      onPressed: () =>
+                          Navigator.of(context, rootNavigator: true).pop(),
+                      child: Text(
+                        "Ok",
+                        style: TextStyle(fontSize: 20),
+                      ))
+                ],
+              ),
+            ));
   }
 }
