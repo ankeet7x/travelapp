@@ -14,12 +14,20 @@ class PlaceProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  List<PlaceModel> cachedPlaces = [];
+  List<PlaceModel> offPlaces = [];
+  getList() async {
+    List<PlaceModel> places = await DatabaseService.instance.getPlaces();
+    offPlaces = places;
+    notifyListeners();
+  }
 
   getPlaces() async {
     var response = await placeServices.getPlaces();
     var jsonData = jsonDecode(response.body);
     List<PlaceModel> fetchedPlaces = [];
+    if (jsonData['places'] != null) {
+      DatabaseService.instance.delete();
+    }
     jsonData['places'].forEach((place) {
       PlaceModel placeModel = PlaceModel.fromJson(place);
       fetchedPlaces.add(placeModel);

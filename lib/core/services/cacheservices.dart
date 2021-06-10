@@ -12,7 +12,7 @@ class DatabaseService {
   Future<Database?> get database async {
     if (_database != null) return _database!;
 
-    _database = await _initDB('places.db');
+    _database = await _initDB('placedata.db');
     return _database!;
   }
 
@@ -24,13 +24,14 @@ class DatabaseService {
 
   _createDb(Database db, int version) async {
     await db.execute(
-        ''' CREATE TABLE products(id TEXT, place TEXT, price TEXT, placeImageUrl TEXT )
+        ''' CREATE TABLE products(placeId TEXT, place TEXT, price TEXT, placeImageUrl TEXT)
      ''');
   }
 
-  Future<int> insertIntoDatabase(PlaceModel place) async {
+  Future<PlaceModel> insertIntoDatabase(PlaceModel place) async {
     var db = await instance.database;
-    return await db!.insert('products', place.toJson());
+    final id = await db!.insert('products', place.toMap());
+    return place.copy(id: id.toString());
   }
 
   Future<List<PlaceModel>> getPlaces() async {
