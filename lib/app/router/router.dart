@@ -21,7 +21,9 @@ class RouteGenerator {
         } else {
           return MaterialPageRoute(builder: (_) => HomeView());
         }
-
+      // case '/bookingdetails':
+      //   final bookingArguments = args;
+      //   return MaterialPageRoute(builder: (context) => BookingDetailsPage(orderId: , placeId: placeId, dateOfOrder: dateOfOrder))
       case '/profile':
         return MaterialPageRoute(builder: (_) => ProfileView());
       default:

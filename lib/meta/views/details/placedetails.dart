@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:travelapp/app/constants/colors.dart';
 import 'package:travelapp/core/providers/orderprovider.dart';
 import 'package:travelapp/core/providers/placeprovider.dart';
 
@@ -117,7 +118,7 @@ class _PlaceDetailsState extends State<PlaceDetails> {
                 height: size.height * 0.07,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    color: Colors.blue),
+                    color: AppColor.mainTextColor),
                 child: Center(
                     child: Text("Book",
                         style: TextStyle(color: Colors.white, fontSize: 19))),

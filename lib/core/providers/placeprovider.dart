@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:travelapp/core/models/postmodel.dart';
+import 'package:travelapp/core/models/placemodel.dart';
 import 'package:travelapp/core/services/cacheservices.dart';
 import 'package:travelapp/core/services/placeservices.dart';
 
@@ -36,6 +36,24 @@ class PlaceProvider extends ChangeNotifier {
     places = fetchedPlaces;
     isPlaceEmpty = false;
     print('gotit');
+    notifyListeners();
+  }
+
+  late PlaceModel bookedPlace;
+  bool placeLoadedById = false;
+
+  getPlaceById(String id) async {
+    var response = await placeServices.getPlaceById(id);
+    var jsonData = await jsonDecode(response.body);
+    if (jsonData['place'] != null) {
+      var place = jsonData['place'];
+      PlaceModel currentPlace = PlaceModel.fromJson(place);
+      bookedPlace = currentPlace;
+      placeLoadedById = true;
+      notifyListeners();
+    }
+
+    placeLoadedById = true;
     notifyListeners();
   }
 }

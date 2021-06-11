@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:travelapp/app/constants/colors.dart';
 import 'package:travelapp/core/providers/placeprovider.dart';
 import 'package:travelapp/app/shared/helpers.dart';
 import 'package:travelapp/meta/views/main/placebrowse.dart';
@@ -61,7 +62,7 @@ class _HomeViewState extends State<HomeView> {
             IconButton(
               icon: Icon(
                 Icons.logout,
-                color: Colors.black,
+                color: AppColor.mainTextColor,
               ),
               onPressed: () {
                 helpers.removeUserData();
@@ -76,7 +77,7 @@ class _HomeViewState extends State<HomeView> {
               if (snapshot.connectionState == ConnectionState.done) {
                 return Text(
                   "Hello " + snapshot.data.toString(),
-                  style: TextStyle(color: Colors.black),
+                  style: TextStyle(color: AppColor.mainTextColor),
                 );
               } else {
                 return Container();
@@ -95,8 +96,8 @@ class _HomeViewState extends State<HomeView> {
           currentIndex: placeProvider.selectedIndex,
           showSelectedLabels: false,
           showUnselectedLabels: false,
-          selectedItemColor: Colors.blue,
-          unselectedItemColor: Colors.blue,
+          selectedItemColor: AppColor.mainTextColor,
+          unselectedItemColor: AppColor.mainTextColor,
           items: [
             BottomNavigationBarItem(
                 icon: Icon(placeProvider.selectedIndex == 0

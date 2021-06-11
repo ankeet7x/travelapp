@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:travelapp/app/constants/colors.dart';
 import 'package:travelapp/core/providers/placeprovider.dart';
 
 class PlaceBrowseView extends StatefulWidget {
@@ -47,13 +48,16 @@ class _PlaceBrowseViewState extends State<PlaceBrowseView> {
                         child: Text(
                           placeProvider.offPlaces[index].placeName,
                           style: TextStyle(
-                              fontSize: 22, fontWeight: FontWeight.bold),
+                              color: AppColor.mainTextColor,
+                              fontSize: 22,
+                              fontWeight: FontWeight.bold),
                         ),
                       ),
                       Center(
                         child: Text(
                           "Rs." + placeProvider.offPlaces[index].price,
-                          style: TextStyle(fontSize: 20),
+                          style: TextStyle(
+                              fontSize: 20, color: AppColor.mainTextColor),
                         ),
                       ),
                     ]);
@@ -90,13 +94,16 @@ class _PlaceBrowseViewState extends State<PlaceBrowseView> {
                         child: Text(
                           placeProvider.places[index].placeName,
                           style: TextStyle(
-                              fontSize: 22, fontWeight: FontWeight.bold),
+                              color: AppColor.mainTextColor,
+                              fontSize: 22,
+                              fontWeight: FontWeight.bold),
                         ),
                       ),
                       Center(
                         child: Text(
                           "Rs." + placeProvider.places[index].price,
-                          style: TextStyle(fontSize: 20),
+                          style: TextStyle(
+                              fontSize: 20, color: AppColor.mainTextColor),
                         ),
                       ),
                     ]);

@@ -1,5 +1,5 @@
 import 'package:sqflite/sqflite.dart';
-import 'package:travelapp/core/models/postmodel.dart';
+import 'package:travelapp/core/models/placemodel.dart';
 import 'package:path/path.dart';
 
 class DatabaseService {

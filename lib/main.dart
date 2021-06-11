@@ -5,9 +5,11 @@ import 'package:travelapp/app/shared/helpers.dart';
 import 'package:travelapp/core/providers/orderprovider.dart';
 import 'package:travelapp/core/providers/placeprovider.dart';
 import 'core/providers/authprovider.dart';
+import 'package:flutter/services.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   bool isUserThere = await Helpers().isUserThere();
   runApp(MultiProvider(
     providers: [
