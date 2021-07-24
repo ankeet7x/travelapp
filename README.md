@@ -12,3 +12,5 @@ An app to book places for travelling.
 
 ### Some Screenshots
 <img src="photos/login.jpg" width="200"> <img src="photos/home.jpg" width="200"> <img src="photos/details.jpg" width="200">
+
+The images are from https://www.instagram.com/travelspree_/
